@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Movements - Inventory Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+                    <h2 class="mb-0"><i class="bi bi-shuffle"></i> Product Movements</h2>
+                    <a href="{{ url_for('main.new_movement') }}" class="btn btn-warning">
+                        <i class="bi bi-plus-circle-fill"></i> Record Movement
+                    </a>
+                </div>
+                
+                {% if movements %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Timestamp</th>
+                                <th>Product</th>
+                                <th>From Location</th>
+                                <th>To Location</th>
+                                <th>Quantity</th>
+                                <th>Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for movement in movements %}
+                            <tr>
+                                <td><small><i class="bi bi-upc-scan"></i> {{ movement.movement_id[:8] }}...</small></td>
+                                <td><i class="bi bi-calendar3"></i> {{ movement.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+                                <td><i class="bi bi-box-seam"></i> {{ movement.product.name }}</td>
+                                <td>
+                                    {% if movement.from_loc %}
+                                        <i class="bi bi-pin-map text-danger"></i> {{ movement.from_loc.name }}
+                                    {% else %}
+                                        <span class="text-muted">-</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if movement.to_loc %}
+                                        <i class="bi bi-pin-map-fill text-success"></i> {{ movement.to_loc.name }}
+                                    {% else %}
+                                        <span class="text-muted">-</span>
+                                    {% endif %}
+                                </td>
+                                <td><strong>{{ movement.qty }}</strong></td>
+                                <td>
+                                    {% if movement.get_movement_type() == 'IN' %}
+                                        <span class="badge bg-success">
+                                            <i class="bi bi-box-arrow-in-right"></i> IN
+                                        </span>
+                                    {% elif movement.get_movement_type() == 'OUT' %}
+                                        <span class="badge bg-danger">
+                                            <i class="bi bi-box-arrow-right"></i> OUT
+                                        </span>
+                                    {% elif movement.get_movement_type() == 'TRANSFER' %}
+                                        <span class="badge bg-info">
+                                            <i class="bi bi-arrow-left-right"></i> TRANSFER
+                                        </span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle-fill"></i> No movements recorded yet. Record your first movement to get started!
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

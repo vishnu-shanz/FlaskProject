@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} - Inventory Management System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="mb-4"><i class="bi bi-shuffle"></i> {{ title }}</h2>
+                
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="mb-4">
+                        {{ form.product_id.label(class="form-label") }}
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-box2-fill"></i></span>
+                            {{ form.product_id(class="form-select" + (" is-invalid" if form.product_id.errors else "")) }}
+                        </div>
+                        {% if form.product_id.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.product_id.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            {{ form.from_location.label(class="form-label") }}
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-box-arrow-right text-danger"></i></span>
+                                {{ form.from_location(class="form-select") }}
+                            </div>
+                            <small class="form-text text-muted">Leave as "None" for incoming stock</small>
+                        </div>
+                        
+                        <div class="col-md-6 mb-4">
+                            {{ form.to_location.label(class="form-label") }}
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-box-arrow-in-right text-success"></i></span>
+                                {{ form.to_location(class="form-select") }}
+                            </div>
+                            <small class="form-text text-muted">Leave as "None" for outgoing stock</small>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        {{ form.qty.label(class="form-label") }}
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-123"></i></span>
+                            {{ form.qty(class="form-control" + (" is-invalid" if form.qty.errors else ""), placeholder="Enter quantity") }}
+                        </div>
+                        {% if form.qty.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.qty.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('main.movements') }}" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left-circle"></i> Back
+                        </a>
+                        {{ form.submit(class="btn btn-warning") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

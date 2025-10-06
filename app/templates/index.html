@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Inventory Management System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-10">
+        <div class="hero-section text-center">
+            <h1 class="display-4 mb-4">
+                <i class="bi bi-boxes" style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i> Welcome to Inventory Management
+            </h1>
+            <p class="lead mb-4">
+                Manage your products, locations, and track inventory movements with ease.
+            </p>
+            <div class="row mt-5 g-4">
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <i class="bi bi-box2-fill display-3" style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
+                            <h5 class="mt-3 fw-bold">Products</h5>
+                            <p class="text-muted small">Manage your product catalog</p>
+                            <a href="{{ url_for('main.products') }}" class="btn btn-primary w-100">
+                                <i class="bi bi-arrow-right-circle"></i> View Products
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <i class="bi bi-geo-fill display-3" style="background: var(--success-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
+                            <h5 class="mt-3 fw-bold">Locations</h5>
+                            <p class="text-muted small">Manage storage locations</p>
+                            <a href="{{ url_for('main.locations') }}" class="btn btn-success w-100">
+                                <i class="bi bi-arrow-right-circle"></i> View Locations
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <i class="bi bi-shuffle display-3" style="color: #fa709a;"></i>
+                            <h5 class="mt-3 fw-bold">Movements</h5>
+                            <p class="text-muted small">Track inventory movements</p>
+                            <a href="{{ url_for('main.movements') }}" class="btn btn-warning w-100">
+                                <i class="bi bi-arrow-right-circle"></i> View Movements
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <i class="bi bi-graph-up-arrow display-3" style="color: #a18cd1;"></i>
+                            <h5 class="mt-3 fw-bold">Report</h5>
+                            <p class="text-muted small">View inventory balances</p>
+                            <a href="{{ url_for('main.report') }}" class="btn btn-info w-100">
+                                <i class="bi bi-arrow-right-circle"></i> View Report
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Balance Report - Inventory Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="mb-4">
+                    <h2 class="mb-2"><i class="bi bi-graph-up-arrow"></i> Inventory Balance Report</h2>
+                    <p class="text-muted">Current stock levels across all products and locations</p>
+                </div>
+                
+                {% if balances %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th><i class="bi bi-hash"></i> ID</th>
+                                <th><i class="bi bi-box2"></i> Product</th>
+                                <th><i class="bi bi-hash"></i> Location ID</th>
+                                <th><i class="bi bi-geo-alt"></i> Location</th>
+                                <th><i class="bi bi-stack"></i> Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for balance in balances %}
+                            <tr>
+                                <td>{{ balance.product_id }}</td>
+                                <td><i class="bi bi-box-seam me-1"></i><strong>{{ balance.product_name }}</strong></td>
+                                <td>{{ balance.location_id }}</td>
+                                <td><i class="bi bi-pin-map-fill me-1"></i>{{ balance.location_name }}</td>
+                                <td>
+                                    {% if balance.balance > 0 %}
+                                        <span class="badge bg-success fs-6">
+                                            <i class="bi bi-arrow-up-circle-fill"></i> {{ balance.balance }}
+                                        </span>
+                                    {% elif balance.balance < 0 %}
+                                        <span class="badge bg-danger fs-6">
+                                            <i class="bi bi-arrow-down-circle-fill"></i> {{ balance.balance }}
+                                        </span>
+                                    {% else %}
+                                        <span class="badge bg-secondary fs-6">
+                                            <i class="bi bi-dash-circle-fill"></i> {{ balance.balance }}
+                                        </span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle-fill"></i> No inventory data available. Record some movements to see balances!
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
